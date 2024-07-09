@@ -1,6 +1,6 @@
-from players import RandomPlayer
+import players
 
-players = [RandomPlayer(), RandomPlayer(), RandomPlayer(), RandomPlayer()]
+players = [players.Player1(), players.Player2(), players.Player3(), players.Player4()]
 
 class Game:
     def __init__(self, players):
@@ -16,11 +16,12 @@ class Game:
         declines = 0
         purse = 50
 
-        print(f'Round {self.rounds_played + 1}')
+        print(f'\nRound {self.rounds_played + 1}')
 
         for player in self.players:
+            print(f'Bag remaining: {purse}', end="\t")
             bid = player[0].bid(purse, current_bids)
-            print(f'{player[0].name} bids {bid}')
+            # print(f'{player[0].name} bids {bid}')
             if bid <= -1:
                 bid = -1
                 declines += 1
@@ -57,7 +58,7 @@ class Game:
         for i in range(4):
             self.players[i][0].round_result(i+1, bids, results)
 
-        print(f'Round results: {results}')
+        print(f'\nRound {self.rounds_played + 1} results: {[[player[0].name, result] for player, result in zip(self.players, results)]}')
 
     def play_game(self, rounds):
         for _ in range(rounds):
